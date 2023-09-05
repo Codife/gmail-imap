@@ -1,0 +1,1339 @@
+Variables
+Declare one variable per line: In JavaScript, you can declare multiple variables per line. It is something that I would discourage from doing though. By declaring one variable per line the code will become easier to read and understand.
+
+
+
+// Avoid 
+const x = 0, y = 4, z = 10;
+
+// Instead, write
+const x = 0;
+const y = 4;
+const z = 10;
+Use camelCase: This convention suggests using lowercase for the first word of a variable or function name and capitalizing the first letter of each subsequent word.
+
+
+
+// Avoid
+let callid;
+let Callid;
+let CallId;
+let CallID;
+let callID;
+let call_id;
+let Call_Id;
+
+// Instead, write
+let callId;
+
+const ageOfPerson = 30;
+Use descriptive names: Your variables should accurately describe what they do, making your code more readable and understandable. Avoid using single-letter or generic variable names like "x" or "temp".
+
+
+
+// Avoid
+const a = 10;
+
+// Instead, write
+const totalUsers = 10;
+
+
+// Avoid using temp | row | oneUser | data | values etc.
+for (row of users){
+  // ...
+};
+
+// Instead, write
+for (user of users){
+  // ...
+};
+
+
+// Avoid
+const value = await isCallInbound(callId); // function returning boolean
+if (value){
+  // Call is inbound
+}
+
+// Instead, write
+const isCallInbound = await isCallInbound(callId);
+if (isCallInbound){ // or use isInbound because on very right side of = function name is about the call, but if scope of variable is larger then use isCallInbound
+  // Call is inbound
+}
+
+
+// Avoid
+const calls = {
+  inbound_calls: 100,
+  OutboundCalls: 3,
+};
+
+// Instead, write
+const calls = {
+  inboundCalls: 100, // or use just inbound | totalInbound | totalInboundCalls
+  outboundCalls: 3, // or use just outbound | totalOutbound | totalOutboundCalls
+};
+Use trailing semicolons: Although JavaScript allows you to omit semicolons, it is considered a best practice to use them at the end of statements to avoid any potential errors.
+
+
+
+// Avoid
+const name = 'John'
+console.log(name)
+
+// Instead, write
+const name = 'John';
+console.log(name);
+
+
+// Avoid
+const add = (a, b) => {
+  const sum = a + b;
+  return sum;
+}
+
+// Instead, write
+const add = (a, b) => {
+  const sum = a + b;
+  return sum;
+};
+Use const and let: Declare all local variables with either const or let. Use const by default, unless a variable needs to be reassigned. The var keyword must not be used.
+
+Use const for variables that won't be reassigned later in your code.
+
+
+
+const userIds = []; // don't use let, unless userIds needs to be reassigned
+for(const user of users){
+  userIds.push(user.id);
+}
+Use let for variables that need to be reassigned. This communicates to other developers that the value of the variable will change during the execution of the program.
+
+
+
+let callType;
+if(call.type === 1){
+  callType = 'INBOUND';
+} else if(call.type === 2){
+  callType = 'OUTBOUNd';
+} else {
+  callType = 'INTERNAL';
+}
+Use proper datatypes: Use proper datatypes to assign value to a variable, store value in an array/object, return from the function, and store in DB.
+
+
+
+// Avoid
+const totalCalls = '100';
+const isCallInbound = 'true'; // 'false'
+const callCounts = [inbound: '100', outbound: '4'];
+
+// Instead, write
+const totalCalls = 100;
+const isCallInbound = true
+const callCounts = [inbound: 100, outbound: 4];
+
+
+/** Note: Variable DataTypes can be used during the 
+initialization of a variable but only in typescript.
+**/
+const totalCalls:number = 100; // only for typescript
+Use one variable per declaration: Every local variable declaration declares only one variable: declarations such as let a = 1, b = 2; are not used.
+
+
+
+// Avoid
+const x = 0, y = 5, z = 10;
+
+// Instead, write
+const x = 0;
+const y = 5;
+const z = 10;
+Don't reuse variable names: Avoid reusing variable names, as this can lead to confusion and unexpected behaviour. If you need to reuse a variable name, declare a new variable with a different name.
+
+Template literals: JavaScript template literals provide a convenient way to work with strings by allowing variable interpolation and multiline strings. Here are some code standards for using template literals:
+
+Use backticks (`) to define template literals: In the following example, the backticks are used to define a template literal. The variable name is interpolated within ${} to construct the greeting string.
+
+
+
+const name = 'John';
+const greeting = `Hello, ${name}!`;
+Use multiline strings: Template literals make it easy to create multiline strings without the need for manual line breaks. The content within the backticks will be preserved as-is, including line breaks and indentation.
+
+
+
+const message = `This is a multiline string.
+  It can span multiple lines without the need for explicit line breaks.`;
+Utilize expressions within template literals: Template literals can contain expressions, which are evaluated and interpolated into the resulting string. In this example, the sum of a and b is calculated and included in the result string.
+
+
+
+const a = 5;
+const b = 10;
+const result = `The sum of ${a} and ${b} is ${a + b}.`;
+
+
+
+Objects
+
+Zia  Mazari (Unlicensed)
+Owned by Zia Mazari (Unlicensed)
+
+Last updated: May 29, 20232 min read
+3 people viewed
+Use trailing commas: Include a trailing comma whenever there is a line break between the final property and the closing brace.
+
+
+
+// Example
+const calls = {}
+  inbounds: 1000,
+  outbounds: 20,
+};
+Do not use the Object constructor: While Object does not have the same problems as Array, it is still disallowed for consistency. Use an object literal ({} or {a: 0, b: 1, c: 2}) instead.
+
+
+
+// Avoid
+const user = new Object();
+
+// Instead, write
+const user = {};
+Avoid using quoted property names unless necessary: Prefer unquoted property names unless they contain special characters or start with a number. This improves code readability and reduces unnecessary clutter.
+
+
+
+// Avoid
+const person = {
+  "firstName": 'John',
+  "lastName": 'Doe',
+};
+
+// Instead, write
+const person = {
+  firstName: 'John',
+  lastName: 'Doe',
+};
+Do not mix quoted and unquoted keys: Object literals may represent either structs (with unquoted keys and/or symbols) or dicts (with quoted and/or computed keys). Do not mix these key types in a single object literal.
+
+
+
+// Avoid
+{
+  inbound: 42, // struct-style unquoted key
+  'outbound': 43, // dict-style quoted key
+}
+
+// Instead, write
+{
+  inbound: 42,
+  outbound: 43
+}
+Group related properties together: Group related properties together within the object structure to improve readability and organization.
+
+
+
+// Example
+const person = {
+  firstName: 'John',
+  lastName: 'Doe',
+  age: 30,
+  address: {
+    street: '123 Main St',
+    city: 'New York',
+    country: 'USA',
+  },
+};
+Avoid mutating objects directly: Prefer immutability and avoid directly mutating objects. Instead, create a new object or use object spread syntax to make changes.
+
+
+
+// Avoid
+const persion = {};
+person.firstName = 'Jane'; // Or person['firstName'] = 'Jane';
+
+// Instead, write
+const person = {
+  firstName: 'John',
+  lastName: 'Doe',
+};
+Optional Chaining(.?): JavaScript optional chaining, introduced in ECMAScript 2020, provides a concise way to access nested properties or call functions on an object without having to manually check for the existence of each level.
+If the object accessed or function called using this operator is undefined or null, the expression short circuits and evaluates to undefined instead of throwing an error.
+
+
+
+// Example
+const user = {
+  name: 'John',
+  address: {
+    city: 'New York',
+    street: '123 Main St',
+  },
+};
+
+const cityName = user?.address?.city;
+console.log(cityName);  // Output: New York
+
+
+// Disallowed
+console.log(user.address.country); // Output cannot read property of undefined
+
+// Instead, write
+console.log(user?.address?.country); // Output undefined
+Nullish Coalescing Operator(Objects, Arrays & Variables): The Nullish Coalescing Operator (??) is a JavaScript feature introduced in ECMAScript 2020. It provides a concise way to handle situations where you want to choose a default value when a given value is null or undefined.
+
+In this following example, if someValue is null or undefined, defaultValue will be assigned the value 'Default'. Otherwise, defaultValue will have the same value as someValue.
+
+
+
+// Example
+const defaultValue = someValue ?? 'Default';
+
+
+// Avoid
+const user = {
+  name: 'John',
+  age: null,
+};
+
+console.log(user.name ? user.name : 'Anonymous');  // Output: John
+console.log(user.age ? user.age : 'Unknown');  // Output: Unknown
+
+// Instead, write
+const user = {
+  name: 'John',
+  age: null,
+};
+
+console.log(user.name ?? 'Anonymous');  // Output: John
+console.log(user.age ?? 'Unknown');  // Output: Unknown
+Add label
+
+Arrays
+
+Zia  Mazari (Unlicensed)
+Owned by Zia Mazari (Unlicensed)
+
+May 29, 20233 min read
+3 people viewed
+Use trailing commas: Include a trailing comma whenever there is a line break between the final element and the closing bracket.
+
+
+
+// Example
+const calls = [
+  'first value',
+  'second value',
+];
+Do not use the variadic Array constructor: The constructor is error-prone if arguments are added or removed. Use a literal instead.
+
+
+
+// Avoid
+const a1 = new Array(x1, x2);
+const a2 = new Array();
+
+// Instead, use
+const a2 = [x1, x2];
+const a4 = [];
+Destructuring: Array literals may be used on the left-hand side of an assignment to perform destructuring (such as when unpacking multiple values from a single array or iterable). A final rest element may be included (with no space between the ... and the variable name). Elements should be omitted if they are unused.
+
+
+
+// Example
+const [inbounds, outbounds, ...rest] = getCallDetails();
+let [, b,, d] = someArray;
+
+// where getCallDetails returning following array
+// return [inboundCalls, outboundCalls, internalCalls, abandonedCalls, totalCalls];
+Spread operator: Array literals may include the spread operator (...) to flatten elements out of one or more other iterables. The spread operator should be used instead of more awkward constructs with Array.prototype. There is no space after the ...
+
+
+
+// Avoid
+const allCalls = inbounds.concat(outbounds);
+
+// Instead, write
+const allCalls = [...inbounds, ...outbounds];
+Use appropriate array methods for filtering, mapping, and reducing: Utilize array methods like filter, map, and reduce for common array transformations. This helps make the code more expressive and readable.
+
+
+
+// Example
+const numbers = [1, 2, 3, 4];
+
+// Filtering:
+const evenNumbers = numbers.filter((number) => number % 2 === 0);
+
+// Mapping:
+const doubledNumbers = numbers.map((number) => number * 2);
+
+// Reducing:
+const sum = numbers.reduce((total, number) => total + number, 0);
+Use Sync/Async iterations properly: When iterating over arrays in JavaScript, the choice between synchronous and asynchronous iterations depends on the specific requirements of your code and the nature of the operations you need to perform. Here are some best practices for synchronous and asynchronous array iterations:
+
+Synchronous Array Iteration:
+
+Use synchronous iterations when the operations can be performed sequentially without blocking the main thread.
+
+Utilize built-in array methods like forEach, map, filter, and reduce for synchronous array iterations.
+
+Synchronous iterations are generally simpler and easier to reason about, especially for straightforward array transformations or filtering tasks.
+
+Consider using for loops for better control over the iteration process or when performance is a concern.
+
+Examples:
+
+
+
+const numbers = [1, 2, 3, 4];
+
+numbers.forEach((number) => {
+  console.log(number);
+});
+
+const doubledNumbers = numbers.map((number) => number * 2);
+
+const evenNumbers = numbers.filter((number) => number % 2 === 0);
+
+const sum = numbers.reduce((total, number) => total + number, 0);
+Asynchronous Array Iteration:
+
+Use asynchronous iterations when the operations involve asynchronous tasks, such as making API requests or performing I/O operations.
+
+Consider using asynchronous iteration methods like for...of loops, for await...of loops, or Array.prototype.forEach with async functions.
+
+Utilize promises, async/await, or callback mechanisms to handle asynchronous operations within the iteration.
+
+Be mindful of error handling and proper handling of asynchronous control flow to prevent unexpected behaviour or memory leaks.
+
+Examples:
+
+
+
+const urls = ['https://example.com/api/1', 
+              'https://example.com/api/2', 
+              'https://example.com/api/3'
+              ];
+
+async function fetchData(url) {
+  const response = await fetch(url);
+  const data = await response.json();
+  console.log(data);
+}
+
+// Using for...of loop with async/await
+for (const url of urls) {
+  await fetchData(url);
+}
+
+// Using Array.prototype.forEach with async function
+urls.forEach(async (url) => {
+  await fetchData(url);
+});
+
+// Using for await...of loop with async generator function
+async function* getAsyncData() {
+  for (const url of urls) {
+    yield await fetchData(url);
+  }
+}
+
+(async () => {
+  for await (const data of getAsyncData()) {
+    // Process each data asynchronously
+  }
+})();
+
+
+Conditions
+
+Zia  Mazari (Unlicensed)
+Owned by Zia Mazari (Unlicensed)
+
+Last updated: May 29, 20234 min read
+2 people viewed
+When working with conditions in JavaScript, following these best practices can help improve code readability, maintainability, and reliability:
+
+Use explicit comparisons: Use strict equality (=== or !==) for comparisons to avoid unexpected type coercion. Avoid loose equality (== or !=) as it can lead to unexpected behaviour.
+
+
+
+// Avoid
+if (x == 5) { // using loose equality(==) to match only values
+  // ...
+}
+
+// Instead, write
+if (x === 5) { // using strict equality(===) to match both value and type
+  // ...
+}
+Avoid nested if-else statements: Keep your if-else statements as flat as possible to improve readability and maintainability. Avoid excessive nesting of if-else statements, also known as "callback hell" or "pyramid of doom". Instead, use early returns or separate functions to handle complex conditions.
+
+
+
+// Avoid nested if-else
+if (condition1) {
+  if (condition2) {
+    // ...
+  } else {
+    // ...
+  }
+} else {
+  // ...
+}
+
+// Instead use flattened if-else
+if (condition1 && condition2) {
+  // ...
+} else {
+  // ...
+}
+Prefer positive conditions: When possible, structure conditions to check for positive scenarios rather than negating them if (!user.isNotAuthenticated). Positive conditions are usually easier to understand and follow.
+
+
+
+// Example
+if (user.isAuthenticated) {
+  // ...
+}
+Use parentheses for complex conditions: When using complex conditions in if-else statements, use parentheses to clarify the precedence of logical operators. This helps prevent unexpected behaviour due to operator precedence.
+
+
+
+// Avoid
+if (x > 0 && y < 10 || z === 5) {
+  // ...
+}
+
+// Instead, write
+if ((x > 0 && y < 10) || z === 5) {
+  // ...
+}
+Use early returns or guard clauses: Rather than deeply nesting conditionals, use early returns or guard clauses to handle exceptional cases or invalid inputs upfront. This improves code readability by avoiding excessive indentation.
+
+
+
+// Example
+function validateUser(user) {
+  if (!user) {
+    return false;
+  }
+
+  if (!user.name || !user.email) {
+    return false;
+  }
+
+  // Validation logic...
+  return true;
+}
+Simplify Variables:
+
+
+
+// Avoid
+const deletedAt = '2023-04-11 01:10:11';
+let isUserDeleted = false; // variable initializer is redundant
+isUserDeleted = deletedAt ? true: false; // can be simplified
+
+// Instead, write
+const deletedAt = '2023-04-11 01:10:11';
+const isUserDeleted = !!deletedAt;
+Use short-circuit evaluation for default values:
+In this following example, if username is truthy, it will be assigned to name. Otherwise, the default value 'Guest' will be used. The logical OR operator (||) performs short-circuit evaluation, which simplifies the code by eliminating the need for an explicit conditional statement.
+
+
+
+// Avoid
+const name = username ? username : 'Guest';
+
+// Instead, write
+const name = username || 'Guest';
+Be mindful of readability: Write if-else statements that are easy to read and understand. Avoid complex or convoluted conditions that can make the code difficult to comprehend. Use meaningful variable names and comments to provide clarity when needed.
+
+
+
+// Avoid:
+if (x < 100 && y > 0 && z !== 10) {
+  // ...
+}
+
+// Instead, write
+const isInRange = x < 100;
+const isValid = y > 0;
+const isDifferent = z !== 10;
+
+if (isInRange && isValid && isDifferent) {
+  // ...
+}
+Use the ternary operator for simple conditions: For simple if-else conditions with only one statement in each branch, you can use the ternary operator as a more concise and readable alternative.
+
+
+
+// Avoid
+if (x > 0) {
+  y = "positive";
+} else {
+  y = "non-positive";
+}
+
+// Instead Use Ternary operator
+y = x > 0 ? "positive" : "non-positive";
+Simplify conditions: When the variable being evaluated is already a boolean, you can directly use it in the condition. This simplifies the code and improves readability.
+
+
+
+const isActive = true;
+
+// Avoid
+if (isActive === true) {
+  // ...
+}
+
+// Instead use
+if (isActive) {
+  // ...
+}
+Avoid using confusing magic numbers: Often time we define if status == 1, do this, such numbers can be confusing in a later run as we might not know what it meant at the time of coding. Define such a constant number by the relevant name.
+
+
+
+const approved = 1;
+const rejected = 2;
+if (status === approved) {
+  // ...
+}
+Ternary operator: The ternary operator in JavaScript (condition ? expression1 : expression2) is a concise way to write conditional statements. To use the ternary operator effectively and maintain readable code, consider the following best practices:
+
+Keep it simple and concise: The ternary operator is best suited for simple and straightforward conditions. Avoid using complex expressions or multiple nested ternary operators, as it can make the code harder to read and understand.
+
+
+
+const result = condition ? value1 : value2;
+Use parentheses for clarity: When combining conditions or expressions within the ternary operator, use parentheses to explicitly group them. This improves readability and avoids potential confusion.
+
+
+
+const result = (condition1 && condition2) ? value1 : value2;
+Avoid assigning complex or lengthy expressions: Avoid assigning complex or lengthy expressions to the ternary operator directly. It can make the code harder to understand and maintain. Instead, opt for traditional if-else statements for such cases.
+
+
+
+// Avoid
+const result = (condition) ? complexFunctionCall() : anotherComplexFunctionCall();
+
+// Instead, write
+let result;
+if (condition) {
+  result = complexFunctionCall();
+} else {
+  result = anotherComplexFunctionCall();
+}
+Avoid nesting multiple ternary operators: Avoid nesting multiple ternary operators, as it can quickly become unreadable and difficult to comprehend. Instead, use if-else statements for more complex or nested conditions.
+
+
+
+// Avoid
+const result = (condition1) ? value1 : ((condition2) ? value2 : value3);
+
+// instead, write
+let result;
+if (condition1) {
+  result = value1;
+} else if (condition2) {
+  result = value2;
+} else {
+  result = value3;
+}
+
+
+Functions
+
+Zia  Mazari (Unlicensed)
+Owned by Zia Mazari (Unlicensed)
+
+Last updated: May 29, 20234 min read
+3 people viewed
+Use descriptive names: Your function/method names should accurately describe what they do, making your code more readable and understandable. Avoid using short names or abortions.
+
+
+
+// Avoid
+const detail = (userId) => {
+  // ...
+}
+
+// Instead, write
+const getUserDetail = (userId) => {
+  // ...
+}
+Follow Single Responsibility Principle (SRP): Each function should be responsible for performing only one action.
+Examples:
+
+
+
+// Function responsible for validating an email address
+const validateEmail = (email) => {
+  const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+  return emailRegex.test(email);
+};
+
+// Function responsible for sending an email
+const sendEmail =(email, subject, message) => {
+  // Code for sending the email...
+};
+
+// Function responsible for logging an error
+const  logError = (error) => {
+  console.error(error);
+};
+
+// Function responsible for processing user registration
+const registerUser = (name, email, password) => {
+  if (!validateEmail(email)) {
+    logError('Invalid email address');
+    return;
+  };
+
+  // Code for registering the user...
+  sendEmail(email, 'Welcome!', 'Thank you for registering.');
+}
+Function parameters: Using fewer function parameters can improve code readability and maintainability. Here are some best practices for minimizing the number of function parameters in JavaScript:
+
+Limit the number of parameters: Try to keep the number of function parameters to a minimum. Ideally, a function should have three or fewer parameters. This helps in understanding and using the function more easily.
+
+Use objects or options for complex parameters: If a function requires a large number of related parameters, consider using an object or options pattern. Instead of passing multiple individual arguments, you can pass a single object or options parameter that contains all the necessary values. This approach simplifies the function signature and makes it more flexible for future changes.
+
+
+
+// Example using object
+const createUser = (userData) => {
+  // Access individual properties using userData.name, userData.age, etc.
+};
+
+// Example using options
+const fetchData = (url, options = {}) => {
+  const { method = 'GET', headers = {} } = options;
+  // Perform fetch operation using url, method, and headers
+};
+Use default parameter values: Default parameter values allow you to define fallback values for optional arguments. This can help reduce the number of parameters required when some arguments are optional.
+
+
+
+// Example
+const greetUser = (id, age = 20, gender = null) => {
+  // ...
+};
+Consider function composition: If a function is performing multiple operations that can be logically separated, consider breaking it down into smaller, focused functions. Each function can then have fewer parameters, making them easier to understand and use.
+
+
+
+const calculateTotalPrice = (items) => {
+  const subtotal = calculateSubtotal(items);
+  const tax = calculateTax(subtotal);
+  const shipping = calculateShipping(subtotal);
+  return subtotal + tax + shipping;
+};
+Use try-catch: Using try-catch blocks is a best practice in JavaScript for handling exceptions and errors that may occur during the execution of code within a function. 
+
+try blocks should only contain the minimum amount of code that may throw an exception. Keeping try blocks small helps to narrow down the scope of error handling and makes it easier to identify and fix issues. Avoid wrapping large sections of code with a try block as it may make it difficult to pinpoint the source of the error. 
+
+Log and/or re-throw errors: When catching exceptions, it's important to log the error information for debugging purposes, so you can identify and fix the root cause of the error. Depending on the situation, you may also choose to re-throw the error with additional information or wrap it in a custom error object for more fine-grained error handling or propagate the error to higher-level error handlers.
+
+
+
+// Example
+const fetchUserData = (userId) => {
+  try {
+    // Fetch user data from API
+    const response = await fetch(`https://api.example.com/users/${userId}`);
+    if (!response.ok) {
+      // Handle non-2xx HTTP status codes as expected error
+      throw new Error(`Failed to fetch user data: ${response.status} ${response.statusText}`);
+    }
+    const userData = await response.json();
+    // Process user data and return
+    return userData;
+  } catch (error) {
+    // Handle expected error
+    // Optionally, re-throw the error or throw a custom error object
+    // throw new CustomError('Failed to fetch user data', error);
+    return null; // Return a default value or null
+  }
+};
+Arrow functions: 
+
+An arrow function expression is a compact alternative to a traditional functional expression, with some semantic differences and deliberate limitations in usage:
+
+Arrow functions don't have their own bindings to this, arguments, or super, and should not be used as methods.
+
+Arrow functions cannot be used as constructors. Calling them with new throws a TypeError. They also don't have access to the new.target keyword.
+
+Arrow functions cannot use yield within their body and cannot be created as generator functions.
+
+
+
+// Avoid traditional anonymous function
+(function (a, b) {
+  const chuck = 42;
+  return a + b + chuck;
+});
+
+// Instead, use arrow function
+(a, b) => {
+  const chuck = 42;
+  return a + b + chuck;
+};
+
+
+// Avoid traditional function
+function bob(a) {
+  return a + 100;
+}
+
+// Instead, use arrow function
+const bob2 = (a) => a + 100;
+
+
+Promises
+
+Zia  Mazari (Unlicensed)
+Owned by Zia Mazari (Unlicensed)
+
+May 30, 20234 min read
+2 people viewed
+Handling synchronous (sync) and asynchronous (async) operations in JavaScript requires careful consideration of coding practices to ensure optimal performance and maintainability. Here are some best practices for handling sync and async operations in JavaScript:
+
+async/await:  Wrap your await calls within a try block to catch any errors that may occur during the asynchronous operation. Use the catch block to handle and process the errors appropriately.
+
+
+
+// Example
+const fetchData = async () => {
+  try {
+    const response = await fetch('https://api.example.com/data');
+    const data = await response.json();
+    // Process the data
+  } catch (error) {
+    // Handle the error
+    console.error(error);
+  }
+}
+Limit the use of await in loops: Avoid using await inside loops, as it may introduce unnecessary delays. Instead, consider using parallel or concurrent approaches, such as Promise.all or libraries like Promise.map from Bluebird, to process multiple asynchronous tasks simultaneously.
+
+
+
+// Example
+const processItems = async (items) => {
+  const promises = items.map(async (item) => {
+    // Perform asynchronous task for each item
+    const result = await doAsyncTask(item);
+    return result;
+  });
+
+  const results = await Promise.all(promises);
+  // Process the results
+}
+Leverage Promise.all for parallel execution: When you have multiple independent asynchronous tasks that can be executed in parallel, use Promise.all to await their completion. This can improve the overall performance of your code by executing multiple asynchronous tasks concurrently.
+
+
+
+// Example
+const processTasks = async () => {
+ try {
+    const promise1 = fetchDataFromAPI1(); // Fetch data from API 1
+    const promise2 = fetchDataFromAPI2(); // Fetch data from API 2
+    const promise3 = fetchDataFromAPI3(); // Fetch data from API 3
+    const [api1Response, api2Response, api3Response] = await Promise.All([
+        await promise1(),
+        await promise2(),
+        await promise3(),
+    ]);
+  } catch (error) {
+    // Handle error
+    console.error(error);
+  }
+}
+Use Promise.allSettled for Promises handling: If you think your promises(functions, apis) can throw error then Promise.all will not resolve all the promises. The Promise.allSettled method allows you to handle multiple promises and get the result of each promise, regardless of its resolution status (fulfilled or rejected).
+
+
+
+// Example
+const apiPromises = [
+  fetch('https://api.example.com/data1'),
+  fetch('https://api.example.com/data2'),
+  fetch('https://api.example.com/data3'),
+];
+
+Promise.allSettled(apiPromises)
+  .then((results) => {
+    results.forEach((result, index) => {
+      if (result.status === 'fulfilled') {
+        // Handle fulfilled promise
+        console.log(`API ${index + 1} resolved:`, result.value);
+      } else if (result.status === 'rejected') {
+        // Handle rejected promise
+        console.error(`API ${index + 1} rejected:`, result.reason);
+      }
+    });
+  });
+In the above example, we have an array apiPromises containing promises representing different API calls. We use Promise.allSettled to await the completion of all promises and get the results. The results array contains objects representing the status ('fulfilled' or 'rejected') and the result or error reason of each promise.
+
+By iterating over the results array, you can handle each API call individually, regardless of whether it resolved successfully or was rejected. This allows you to handle errors or process the data accordingly for each API.
+
+Note that Promise.allSettled was introduced in ECMAScript 2020 and may not be available in older JavaScript environments. If you need to support older environments, you can use a polyfill or consider alternative approaches like Promise.all with error handling using .catch().
+
+Overall, Promise.allSettled provides a convenient way to handle errors and results of multiple promises, including API calls, in a comprehensive manner.
+
+Avoid using synchronous APIs: Synchronous APIs block the execution of other code until the operation is completed, which can result in poor performance and a bad user experience. Instead, use asynchronous APIs that allow other code to continue running while the async operation is being performed.
+
+
+
+// Avoid
+const fetchDaata = async () => {
+  try {
+    const api1Response = await fetchDataFromApi1(); // returing data after 3 seconds
+    const api2Response = await fetchDataFromApi2(); // returing data after 5 seconds
+    const api3Response = await fetchDataFromApi3(); // returing data after 2 seconds
+    // Above functions will take 10 seconds(3+5+2) to complete
+  } catch (error) {
+    // Handle error
+    console.error(error);
+  }
+};
+
+// Instead, use Promis.all or Promise.allSettled
+const fetchDaata = async () => {
+  try {
+    const promise1 = fetchDataFromAPI1(); // Fetch data from API 1
+    const promise2 = fetchDataFromAPI2(); // Fetch data from API 2
+    const promise3 = fetchDataFromAPI3(); // Fetch data from API 3
+    const [api1Response, api2Response, api3Response] = await Promise.All([
+        await promise1(),
+        await promise2(),
+        await promise3(),
+    ]);
+    // Above functions will take aprox 5 seconds to complete
+  } catch (error) {
+    // Handle error
+    console.error(error);
+  }
+};
+Avoid using “.then()” and use “async/await”: Using async/await is generally considered a best practice over chaining .then() for handling promises in JavaScript. async/await provides a more concise and readable way to write asynchronous code, making it easier to understand and maintain.
+
+
+
+// Avoid
+fetchData()
+  .then(data => {
+    // Handle fetched data
+    console.log(data);
+    return process(data);
+  })
+  .then(processedData => {
+    // Handle processed data
+    console.log(processedData);
+  })
+  .catch(error => {
+    // Handle error
+    console.error(error);
+  });
+  
+
+// Instead, write
+const fetchDataAndProcess = async () => {
+  try {
+    const data = await fetchData();
+    // Handle fetched data
+    console.log(data);
+    const processedData = await process(data);
+    // Handle processed data
+    console.log(processedData);
+  } catch (error) {
+    // Handle error
+    console.error(error);
+  }
+}
+
+
+Enums
+
+Zia  Mazari (Unlicensed)
+Owned by Zia Mazari (Unlicensed)
+
+Last updated: May 29, 20232 min read
+3 people viewed
+When using enums in JavaScript, you can follow these best practices to ensure clean and maintainable code:
+
+Use an uppercase naming convention for enum values: By using uppercase names, it's clear that these values are intended to be constants and represent distinct options within the enum.
+
+
+
+// Example
+const CallType = {
+  INBOUND: 1,
+  OUTBOUND: 2
+};
+
+
+// Avoid
+if(type === 1){
+  // ...
+}
+
+// Instead, write
+if(type === CallType.INBOUND){
+  // ...
+}
+Use frozen objects for enum-like behaviour: Freezing the object prevents modifications to its properties, making it behave like an enum. It ensures that the enum values remain constant throughout the codebase.
+
+
+
+// Example
+const CallType = Object.freeze({
+  INBOUND: 1,
+  OUTBOUND: 2,
+});
+Enumerate all enum values explicitly: Include all possible values within the enum, even if not all values are currently used. This helps to define a clear and comprehensive set of options.
+
+
+
+// Example
+const CallType = {
+  INBOUND: 1,
+  OUTBOUND: 2,
+  INTERNAL: 3, // Add it even it's not being used currently
+  CONFERENCE: 4 // Add it even it's not being used currently
+};
+
+
+const ResponseCode = {
+    OK: 200, // The request succeeded.
+    CREATED: 201, // The request succeeded and data inserted/created
+    NO_CONTENT: 204, // The server has successfully fulfilled the request and that there is no additional content to send in the response payload body.
+    BAD_REQUEST: 400, // The server cannot or will not process the request due to something that is perceived to be a client error
+    UNAUTHORIZED: 401, // Although the HTTP standard specifies "unauthorized", semantically this response means "unauthenticated".
+    FORBIDDEN: 403, // The client does not have access rights to the content; that is, it is unauthorized, so the server is refusing to give the requested resource. Unlike 401 Unauthorized, the client's identity is known to the server.
+    CONFLICT: 409, // The HTTP 409 Conflict response status code indicates a request conflict with the current state of the target resource.
+    UNPROCESSABLE: 422, // The request was well-formed but was unable to be followed due to semantic errors.
+    SERVER_ERROR: 500, // The server has encountered a situation it does not know how to handle.
+};
+
+
+Redundancy
+
+Zia  Mazari (Unlicensed)
+Owned by Zia Mazari (Unlicensed)
+
+May 29, 20233 min read
+3 people viewed
+Reducing code redundancy is an important aspect of writing clean and maintainable JavaScript code. Here are some best practices to avoid code redundancy:
+
+Use functions for reusable code: Identify common tasks or operations that are repeated throughout your codebase and encapsulate them in reusable functions. This allows you to write the logic once and reuse it whenever needed, eliminating redundancy.
+
+
+
+module.exports.connectDb = async (param1, param2, param3) => {
+  // connect db and return connection...
+}
+Utilize helper/utility functions: Extract frequently used code snippets into a helper or utility functions. These functions can provide generic functionality that can be shared across different parts of your codebase. By centralizing commonly used logic, you avoid duplicating the same code in multiple places.
+
+
+
+const generateUniqueId = () => {
+  const timestamp = Date.now();
+  const random = Math.floor(Math.random() * 1000);
+  return `${timestamp}_${random}`;
+}
+Modularize your code:
+Break down your code into smaller, modular components that have well-defined responsibilities. Each module should focus on a specific task, reducing redundancy and making the code easier to maintain and understand.
+
+Use functions for reusable code: Identify common tasks or operations that are repeated throughout your codebase and encapsulate them in reusable functions. This allows you to write the logic once and reuse it whenever needed, eliminating redundancy.
+
+Remove redundant variables: Minimize the use of unnecessary variables. If a variable is not needed, avoid declaring it. Instead, use the value or expression directly in the appropriate place.
+
+
+
+// Avoid
+const sum = a + b;
+console.log(sum);
+
+// Instead, write
+console.log(a + b);
+
+
+// Avoid
+const getUserDetail = (userId) => {
+    // implementation code...
+    const userDetail = { // Local variable userDetail is redundant, convert it to inline variable
+      id: 5,
+      name: 'Zia',
+      ....
+    };
+    return userDetail;
+  }
+}
+
+// Instead, write
+const getUserDetail = (userId) => {
+    // implementation code...
+    return {
+      id: 5,
+      name: 'Zia',
+      ....
+    };
+  }
+}
+DRY(Don’t Repeat Yourself): Avoid duplicating code across multiple places in your codebase. Instead, create reusable functions or variables to encapsulate common logic that is used in multiple places. This helps to reduce redundancy and makes your code easier to maintain.
+
+
+
+// Avoid using Redundant Code
+function calculateArea(radius) {
+  return 3.14 * radius * radius;
+}
+function calculateCircumference(radius) {
+  return 2 * 3.14 * radius;
+}
+
+// Instead, Eliminate Redundancy
+const pi = 3.14;
+function calculateArea(radius) {
+  return pi * radius * radius;
+}
+function calculateCircumference(radius) {
+  return 2 * pi * radius;
+}
+
+
+// Avoid
+const getUserDetail = async (userId) => {
+  const dbConnection = CREATE_DB_CONNECTION;
+  return dbConnection.quer('YOUR_QUERY');
+}
+
+const getUserCalls = async (userId) => {
+  const dbConnection = CREATE_DB_CONNECTION;
+  return dbConnection.quer('YOUR_QUERY');
+}
+
+// Instead, write
+const dbConnection = CREATE_DB_CONNECTION;
+const getUserDetail = async (userId) => {
+  return dbConnection.quer('YOUR_QUERY');
+}
+const getUserCalls = async (userId) => {
+  return dbConnection.quer('YOUR_QUERY');
+}
+Use functions for repetitive tasks: If you find yourself writing similar code in multiple places, consider creating a function to encapsulate that logic. This not only reduces redundancy but also makes your code more modular and easier to update.
+
+
+
+// Avoid
+const greetUser = () => {
+  console.log("Hello, user!");
+};
+
+const greetAdmin() => {
+  console.log("Hello, admin!");
+};
+
+// Instead, write
+const greet = (role) => {
+  console.log(`Hello, ${role}!`);
+}
+
+
+Comments
+
+Zia  Mazari (Unlicensed)
+Owned by Zia Mazari (Unlicensed)
+
+May 29, 20235 min read
+2 people viewed
+Commenting on your JavaScript code is crucial for improving its readability, maintainability, and collaboration among developers. Here are some best practices for writing code comments in JavaScript:
+
+Use comments to explain complex logic: If you have a piece of code with complex logic or algorithms, use comments to explain how it works. This can help other developers (or even yourself) understand the code better, making it easier to maintain and debug
+
+
+
+// Example
+const callData = [
+    {
+        "month": "January",
+        "counts": {
+            "INBOUND": 38,
+            "OUTBOUND": 27,
+            "INTERNAL": 0,
+            "UNKNOWN": 0
+        }
+    },
+    {
+        "month": "February",
+        "counts": {
+            "INBOUND": 38,
+            "OUTBOUND": 30,
+            "INTERNAL": 0,
+            "UNKNOWN": 0
+        }
+    }
+];
+
+callCountsBySource = [];
+// Use reduce to accumulate the total sums of call directions
+for (const [key, value] of Object.entries(callData.counts)) {
+     // Check if the key is already present in the callCountsBySource object,
+     // if not, initialize it with the count, otherwise add the count to the existing value
+     callCountsBySource[key] = (callCountsBySource[key] || 0) + value2;
+ }
+Comment on tricky or hacky code: If you have a piece of code that is not straightforward or may be considered a workaround or hack, use comments to explain the reasoning behind it. This can help other developers understand the intent of the code and prevent potential misunderstandings.
+Examples:
+
+
+
+// Workaround for browser-specific issue in Safari
+if (navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf('Chrome') === -1) {
+  // Do something
+}
+
+
+cognitoUserPayload = {
+    MessageAction: 'SUPPRESS', // SUPPRESS is used if we don't want to send an email action
+    UserAttributes: [{}},
+    // Remaining payload
+};
+await cognitoIdentityServiceProvider.adminCreateUser(cognitoUserPayload).promise();
+Avoid redundant or unnecessary comments: Comments should provide meaningful information that is not evident from the code itself. Avoid redundant or unnecessary comments that simply repeat what the code already expresses. Keep your comments concise, relevant, and focused on providing valuable insights.
+
+Keep comments up-to-date: Code evolves over time, and so should comments. Make sure to keep your comments up-to-date as you modify your code. Outdated comments can be misleading and may cause confusion.
+
+Remove commented-out code: Remove commented-out code that is no longer used or relevant. It clutters the codebase and can cause confusion.
+
+
+
+// Old implementation - no longer needed
+// function calculateSum(arr) {
+//   // ...
+// }
+Remove temporary or debugging comments: Remove comments that are meant for temporary use during development or debugging. These comments are not necessary in the final production code.
+
+
+
+// console.log('data: ', data);
+// console.log('type of', typeof user);
+Use a consistent commenting style: Follow a consistent commenting style throughout your codebase. This makes your comments more readable and maintains consistency in documentation. For example, you can use single-line comments (//) or multi-line comments (/* */) and choose a consistent indentation and formatting style.
+Examples:
+
+
+
+//Do something is not allowed
+
+// Do something is allowed
+
+
+/*Do something is not allowed,
+*do something again is not allowed
+*/
+
+/* Do something is allowed,
+* do something again is allowed
+*/
+Document APIs and important functions: If you have APIs or important functions in your codebase, provide documentation using comments to explain their usage, parameters, return values, and any other relevant information. This can help other developers effectively use your code.
+
+
+
+/**
+ * Function to add two numbers.
+ *
+ * @param {number} a - The first number.
+ * @param {number} b - The second number.
+ * @returns {number} - The sum of a and b.
+ */
+function addNumbers(a, b) {
+  return a + b;
+}
+Use of TODO, FIXME, OPTIMIZE comments: The use of "TODO" comments in JavaScript code is a helpful practice for indicating areas of code that require further attention or improvements. "TODO" comments serve as reminders for future work that needs to be done, such as fixing bugs, adding new features, improving performance, or refactoring code.
+
+Here are some best practices for using "TODO" comments effectively:
+
+Be specific: Clearly state what needs to be done in the "TODO" comment. Avoid vague or generic comments that do not provide enough context or information. For example, instead of writing "TODO: Fix this", write "TODO: Fix bug in the sorting algorithm that causes incorrect results when the input array contains duplicates".
+
+Use a consistent format: Follow a consistent format for your "TODO" comments. You can use a standard prefix, such as "TODO", "FIXME", or "OPTIMIZE", followed by a colon, and then the description of the task. This makes it easy to search for "TODO" comments in your codebase and helps other developers quickly understand the purpose of the comment.
+
+
+
+// TODO: Refactor this function to handle edge cases gracefully
+// FIXME: Update the error handling mechanism for better error reporting
+// OPTIMIZE: Optimize the performance of this loop for large datasets
+Prioritize and categorize "TODO" comments: If you have multiple "TODO" comments in your codebase, prioritize them based on their importance and urgency. Categorize them into different types of tasks, such as bug fixes, performance improvements, or feature additions, to make it easier to track and manage them.
+
+Review and update "TODO" comments regularly: "TODO" comments should not be ignored or forgotten. Review and update them regularly to ensure that the tasks are completed or to reflect any changes in requirements or priorities. Consider using a task-tracking system or an issue-tracking tool to manage "TODO" comments and track progress.
+
+Communicate "TODO" comments with team members: "TODO" comments can also serve as a form of communication with other team members. If you come across a "TODO" comment that requires someone else's attention or expertise, communicate it to the relevant team member to ensure that the task is addressed appropriately.
+
+Avoid leaving "TODO" comments indefinitely: "TODO" comments should not be left indefinitely in your codebase. They can clutter the code and create confusion if they are not addressed over time. Make sure to follow up and complete the tasks indicated by "TODO" comments in a timely manner.
+
+
+Code Standards Suggestions:
+
+Eman Arshad
+Owned by Eman Arshad
+
+Mar 28, 20232 min read
+12 people viewed
+One of the issues that I have noticed in our code is the lack of use of functions this causes trouble as the code is not that readable
+
+the event handler should be used to call functions and within those functions, actions should be performed
+
+Follow Single Responsibility Principle (SRP):
+
+Each function should be responsible for performing only one action
+
+Do not send more than three parameters into a function:
+
+We usually send each and everything, as it is in the parameters, upon reading about code cleaning, it is preferred to keep as 3 parameters max and in cases, we want to send multiple variables we should first put them in one about (like params object).
+
+Keep the function precise:
+
+the function should be a few lines of code, if we follow one function = one action then this shouldn’t be an issue
+
+Create proper method signatures:
+
+the function name should be pretty explanatory like a variable, it should be camelCase and the name should define the action being performed
+
+Name functions using verb forms:
+
+ increment is better than plusOne
+
+Put statements and expressions in positive form:
+
+isActive instead of isNotActive
+
+Lead with positive conditionals. Avoid if not something then ... else ... end.
+
+If we only care about the inverse of a variable, turn it into a positive name. missingValue instead of not hasValue.
+
+Avoid code duplication:
+
+If the same code is being used again and again with minor changes, a common function should be used to avoid a large number of lines of code
+
+Declare variable at the place of use:
+
+ usually, variables are declared at the beginning of the event handler and sometimes we have variables that are not used or are declared again later this causes issues in code
+
+Avoid using confusing magic numbers:
+
+Often time we define if status == 1, do this, such numbers can be confusing in a later run as we might not know what it meant at the time of coding. Define such constant number by relevant name for example: 
+
+
+
+const approved = 1;
+const rejected = 2;
+if (status == approved) 
+// move forward
+Dead code should be removed:
+
+Never leave commented-out useless code. Remove them completely.
+
+Add label
